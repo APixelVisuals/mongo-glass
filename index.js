@@ -7,7 +7,7 @@ let window;
 electron.app.on("ready", () => {
 
     //Create window
-    window = new electron.BrowserWindow();
+    window = new electron.BrowserWindow({ webPreferences: { nodeIntegration: true } });
     window.maximize();
 
     //Remove window reference when closed
