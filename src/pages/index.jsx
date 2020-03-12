@@ -37,7 +37,7 @@ export default class Index extends React.Component {
 
                             <p className="name">{c.name}</p>
 
-                            <p className="host">{c.host}<span>:{c.port}</span></p>
+                            <p className="host">{c.hostname}<span>:{c.port}</span></p>
 
                             {c.authentication && (
                                 <div className="user">
