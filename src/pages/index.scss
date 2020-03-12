@@ -12,6 +12,7 @@
             height: 1000px;
             top: 0vh;
             left: -1000px;
+            user-select: none;
             z-index: -10;
             animation: leftWave 7s infinite ease-in-out;
 
