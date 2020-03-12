@@ -1,9 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./index.scss";
 const store = new (window.require("electron-store"))();
 
-class Index extends React.Component {
+export default class Index extends React.Component {
 
     constructor(props) {
         super(props);
@@ -50,26 +49,24 @@ class Index extends React.Component {
                         </div>
 
                         <div className="buttons">
-                            <a href={`/database?id=${c.id}`} className="connect-button">Connect</a>
-                            <a href={`/edit-connection?id=${c.id}`} className="edit-button">Edit Connection</a>
+                            <p className="connect-button" onClick={() => this.props.setPage(`/database?id=${c.id}`)}>Connect</p>
+                            <p className="edit-button" onClick={() => this.props.setPage(`/edit-connection?id=${c.id}`)}>Edit Connection</p>
                         </div>
 
                     </div>
                 ))}
 
-                <a href="/new-connection" className="new-connection">
+                <div className="new-connection" onClick={() => this.props.setPage("/new-connection")}>
 
                     <div className="content">
                         <img src="/new.svg" className="icon" />
                         <p className="text">New Connection</p>
                     </div>
 
-                </a>
+                </div>
 
             </div>
 
         </div>
     );
 };
-
-ReactDOM.render(<Index />, document.getElementById("root"));

@@ -152,7 +152,7 @@
 
             .buttons {
                 width: 100%;
-                margin-top: 35px;
+                margin-top: 25px;
 
                 align-self: flex-end;
 
@@ -161,10 +161,10 @@
                     color: white;
                     font-family: "Roboto";
                     font-size: 20px;
-                    text-decoration: none;
                     border: 2px #24a03c solid;
                     border-radius: 5px;
                     padding: 10px 35px;
+                    cursor: pointer;
                     transition: 0.25s;
                     @include center;
 
@@ -178,9 +178,9 @@
                     color: #ffffff5d;
                     font-family: "Roboto";
                     font-size: 20px;
-                    text-decoration: none;
                     white-space: nowrap;
-                    margin-top: 20px;
+                    margin: auto;
+                    cursor: pointer;
                     @include center;
                 }
             }
@@ -190,12 +190,11 @@
             display: flex;
             width: 250px;
             align-items: center;
-            color: white;
-            text-decoration: none;
             border: 5px #ffffff18 solid;
             border-radius: 10px;
             padding: 35px;
             margin: 35px;
+            cursor: pointer;
             transition: 0.25s;
 
             &:hover {
@@ -215,6 +214,7 @@
 
                 .text {
                     display: inline-block;
+                    color: white;
                     font-family: "Roboto";
                     font-size: 25px;
                     white-space: nowrap;
