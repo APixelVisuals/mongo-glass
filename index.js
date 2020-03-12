@@ -1,5 +1,6 @@
 //Modules
 const electron = require("electron");
+const ipc = require("./ipc");
 
 //Define window
 let window;
@@ -16,3 +17,6 @@ electron.app.on("ready", () => {
     //Load index.html
     window.loadURL(process.env.DEV === "true" ? "http://localhost:3000" : `file://${__dirname}/build/index.html`);
 });
+
+//IPC
+ipc();
