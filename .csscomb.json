@@ -36,6 +36,7 @@
         "flex-wrap",
         "justify-content",
         "align-items",
+        "align-self",
         "flex-grow",
         "flex-basis",
         "color",
