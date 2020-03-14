@@ -39,7 +39,7 @@ export default class Index extends React.Component {
 
                             <p className="host">{c.hostname}<span>:{c.port}</span></p>
 
-                            {c.authentication.enabled && (
+                            {((c.authentication.enabled) && (c.authentication.username)) && (
                                 <div className="user">
                                     <img src="/person.svg" className="icon" />
                                     <p className="text">{c.authentication.username}</p>
