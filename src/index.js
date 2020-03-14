@@ -17,7 +17,7 @@ const store = new (window.require("electron-store"))();
                 "/": Index
             };
 
-            this.state = { page: this.pages[((DEV) && (store.get("lastPage"))) || "/"] };
+            this.state = { page: this.pages[(((DEV) && (store.get("lastPage"))) || "/").split("?")[0]] };
         };
 
         render = () => (
@@ -27,7 +27,7 @@ const store = new (window.require("electron-store"))();
         setPage = path => {
 
             //Set page
-            this.setState({ page: this.pages[path] });
+            this.setState({ page: this.pages[path.split("?")[0]] });
 
             //Set last page
             if (DEV) store.set("lastPage", path);
