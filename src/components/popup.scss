@@ -1,0 +1,84 @@
+@import "../global";
+
+#popup {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000a9;
+    z-index: 100;
+
+    .popup-content {
+        position: relative;
+        width: 500px;
+        background-image: linear-gradient(#001f06, #000f03);
+        border-radius: 10px;
+        box-shadow: 0px 0px 50px 5px #24a03d52;
+        overflow: hidden;
+        padding: 35px;
+
+        .wave {
+            position: absolute;
+            width: auto;
+            height: 600px;
+            top: 0vh;
+            left: -650px;
+            user-select: none;
+            animation: popupWave 7s infinite ease-in-out;
+
+            @keyframes popupWave {
+                0%, 100% {
+                    transform: rotate(105deg) translate(-450px, 0);
+                }
+
+                50% {
+                    transform: rotate(105deg) translate(100px, 0);
+                }
+            }
+        }
+
+        .message {
+            width: 100%;
+            color: white;
+            font-family: "Roboto";
+            font-size: 20px;
+            text-align: center;
+            margin: auto;
+            @include center;
+        }
+
+        .confirm-button {
+            display: inline-block;
+            color: white;
+            font-family: "Roboto";
+            font-size: 20px;
+            border: 2px #24a03c solid;
+            border-radius: 5px;
+            padding: 10px 35px;
+            margin-top: 65px;
+            cursor: pointer;
+            transition: 0.25s;
+            @include center;
+
+            &:hover {
+                background-color: #24a03c;
+            }
+        }
+
+        .cancel-button {
+            display: inline-block;
+            color: #ffffff5d;
+            font-family: "Roboto";
+            font-size: 20px;
+            white-space: nowrap;
+            margin: auto;
+            cursor: pointer;
+            @include center;
+        }
+    }
+}
