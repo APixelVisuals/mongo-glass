@@ -1,4 +1,5 @@
 import React from "react";
+import Background from "../components/Background";
 import "./index.scss";
 const store = new (window.require("electron-store"))();
 
@@ -12,14 +13,7 @@ export default class Index extends React.Component {
     render = () => (
         <div id="index">
 
-            <div className="background">
-
-                <img src="/wave.svg" className="left-wave" />
-
-                <div className="top-left-corner" />
-                <div className="bottom-right-corner" />
-
-            </div>
+            <Background />
 
             <div className="title">
                 <img src="/mongo-glass.svg" className="logo" />

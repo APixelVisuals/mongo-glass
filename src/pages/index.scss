@@ -5,53 +5,6 @@
     min-height: 100vh;
     overflow: hidden;
 
-    .background {
-        .left-wave {
-            position: absolute;
-            width: auto;
-            height: 1000px;
-            top: 0vh;
-            left: -1000px;
-            user-select: none;
-            z-index: -10;
-            animation: leftWave 7s infinite ease-in-out;
-
-            @keyframes leftWave {
-                0%, 100% {
-                    transform: rotate(115deg) translate(-300px, 0);
-                }
-
-                50% {
-                    transform: rotate(115deg) translate(300px, 0);
-                }
-            }
-        }
-
-        .top-left-corner {
-            position: absolute;
-            width: 100%;
-            height: 50vh;
-            top: -40vh;
-            left: -35%;
-            background-color: #131b14;
-            border: 2px #24a03c solid;
-            transform: rotate(-15deg);
-            z-index: -10;
-        }
-
-        .bottom-right-corner {
-            position: absolute;
-            width: 100%;
-            height: 50vh;
-            bottom: -40vh;
-            right: -35%;
-            background-color: #131b14;
-            border: 2px #24a03c solid;
-            transform: rotate(-15deg);
-            z-index: -10;
-        }
-    }
-
     .title {
         display: flex;
         justify-content: center;
