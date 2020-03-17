@@ -28,6 +28,6 @@ export default class Popup extends React.Component {
     componentWillUnmount = () => document.removeEventListener("click", this.mouseClick);
 
     mouseClick = e => {
-        if (e.target === this.backgroundRef.current) this.props.cancel();
+        if ((e.target === this.backgroundRef.current) && (this.props.cancel)) this.props.cancel();
     };
 };
