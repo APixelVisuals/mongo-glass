@@ -51,6 +51,15 @@
             text-align: center;
             margin: auto;
             @include center;
+
+            &.codeblock {
+                width: calc(100% - 50px);
+                font-family: monospace;
+                text-align: left;
+                background-color: #00000050;
+                border-radius: 10px;
+                padding: 25px;
+            }
         }
 
         .confirm-button {

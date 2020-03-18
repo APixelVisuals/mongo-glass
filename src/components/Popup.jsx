@@ -14,7 +14,7 @@ export default class Popup extends React.Component {
 
                 <img src="/wave.svg" className="wave" />
 
-                <p className="message">{this.props.message}</p>
+                <p className={`message ${this.props.codeblock && "codeblock"}`}>{this.props.message}</p>
 
                 <p className="confirm-button" onClick={this.props.confirm}>{this.props.confirmText || "Confirm"}</p>
                 {this.props.cancel && <p className="cancel-button" onClick={this.props.cancel}>{this.props.cancelText || "Cancel"}</p>}
