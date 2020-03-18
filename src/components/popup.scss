@@ -29,6 +29,7 @@
             top: 0vh;
             left: -650px;
             user-select: none;
+            pointer-events: none;
             animation: popupWave 7s infinite ease-in-out;
 
             @keyframes popupWave {
