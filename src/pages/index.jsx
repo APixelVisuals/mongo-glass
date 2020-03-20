@@ -1,6 +1,6 @@
 import React from "react";
 import Background from "../components/Background";
-import "./index.scss";
+import "./index.css";
 const store = new (window.require("electron-store"))();
 
 export default class Index extends React.Component {

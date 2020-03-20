@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Index from "./pages/index";
+import "./index.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
 
