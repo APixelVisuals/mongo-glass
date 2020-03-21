@@ -76,7 +76,16 @@
                     font-size: 20px;
                     @include center;
 
-                    span {
+                    .srv {
+                        color: white;
+                        font-size: 15px;
+                        background-color: #24a03d8a;
+                        border-radius: 5px;
+                        padding: 5px 10px;
+                        margin-left: 10px;
+                    }
+
+                    .port {
                         color: #ffffff3d;
                         font-size: 15px;
                     }
