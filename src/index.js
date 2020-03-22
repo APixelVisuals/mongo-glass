@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Index from "./pages/index";
+import NewConnection from "./pages/new-connection";
 import "./index.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -15,7 +16,8 @@ const store = new (window.require("electron-store"))();
             super(props);
 
             this.pages = {
-                "/": Index
+                "/": Index,
+                "/new-connection": NewConnection
             };
 
             const path = ((DEV) && (store.get("lastPage"))) || "/";
