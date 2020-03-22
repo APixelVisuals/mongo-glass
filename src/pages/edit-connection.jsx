@@ -14,8 +14,7 @@ export default class EditConnection extends React.Component {
         this.canceledTestingConnections = [];
         this.authenticationRef = React.createRef();
 
-        this.id = parseInt(this.props.path.split("?id=")[1]);
-        const connection = store.get("connections").find(c => c.id === this.id);
+        const connection = store.get("connections").find(c => c.id === this.props.data.id);
 
         this.state.name = connection.name;
         this.state.hostname = connection.hostname;
@@ -25,7 +24,7 @@ export default class EditConnection extends React.Component {
         this.state.username = connection.authentication.username;
         this.state.authenticationDatabase = connection.authentication.authenticationDatabase;
 
-        (async () => this.setState({ password: await ipc.callMain("keytar", { keytarFunction: "getPassword", params: ["MongoGlass", this.id.toString()] }) }))();
+        (async () => this.setState({ password: await ipc.callMain("keytar", { keytarFunction: "getPassword", params: ["MongoGlass", this.props.data.id.toString()] }) }))();
     };
 
     render = () => (
@@ -156,7 +155,7 @@ export default class EditConnection extends React.Component {
 
         //Get data
         const connections = store.get("connections");
-        const connection = connections.find(c => c.id === this.id);
+        const connection = connections.find(c => c.id === this.props.data.id);
 
         //No name
         if (!this.state.name) return this.setState({ nameError: true });
@@ -173,7 +172,7 @@ export default class EditConnection extends React.Component {
         }));
 
         //Save data
-        await ipc.callMain("keytar", { keytarFunction: this.state.password ? "setPassword" : "deletePassword", params: ["MongoGlass", this.id.toString(), this.state.password] });
+        await ipc.callMain("keytar", { keytarFunction: this.state.password ? "setPassword" : "deletePassword", params: ["MongoGlass", this.props.data.id.toString(), this.state.password] });
         store.set("connections", connections);
 
         //Set page
@@ -218,10 +217,10 @@ export default class EditConnection extends React.Component {
         const connections = store.get("connections");
 
         //Delete connection
-        connections.splice(connections.indexOf(connections.find(c => c.id === this.id)), 1);
+        connections.splice(connections.indexOf(connections.find(c => c.id === this.props.data.id)), 1);
 
         //Save data
-        await ipc.callMain("keytar", { keytarFunction: "deletePassword", params: ["MongoGlass", this.id.toString()] });
+        await ipc.callMain("keytar", { keytarFunction: "deletePassword", params: ["MongoGlass", this.props.data.id.toString()] });
         store.set("connections", connections);
 
         //Set page

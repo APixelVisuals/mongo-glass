@@ -22,22 +22,22 @@ const store = new (window.require("electron-store"))();
                 "/edit-connection": EditConnection
             };
 
-            const path = ((DEV) && (store.get("lastPage"))) || "/";
+            const lastPage = ((DEV && store.get("lastPage")) || { path: "/" });
 
-            this.state = { page: this.pages[path.split("?")[0]], path };
+            this.state = { page: this.pages[lastPage.path], data: lastPage.data };
         };
 
         render = () => (
-            <this.state.page setPage={this.setPage} path={this.state.path} />
+            <this.state.page setPage={this.setPage} data={this.state.data} />
         );
 
-        setPage = path => {
+        setPage = (path, data) => {
 
-            //Set page
-            this.setState({ page: this.pages[path.split("?")[0]], path });
+            //Set data
+            this.setState({ page: this.pages[path], data });
 
             //Set last page
-            if (DEV) store.set("lastPage", path);
+            if (DEV) store.set("lastPage", JSON.parse(JSON.stringify({ path, data })));
         };
     };
 
