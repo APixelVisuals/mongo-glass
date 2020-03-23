@@ -1,4 +1,4 @@
-module.exports = async ({ hostname, port, srv, authenticationEnabled, username, password, authenticationDatabase }) => {
+module.exports = async ({ hostname, port, srv, authenticationEnabled, username, password, authenticationDatabase, testConnection }) => {
 
     //Modules
     const { MongoClient } = require("mongodb");
@@ -11,10 +11,11 @@ module.exports = async ({ hostname, port, srv, authenticationEnabled, username, 
     await client.connect().catch(err => connectionError = err);
 
     //Close connection
-    client.close();
+    if (testConnection) client.close();
 
     //Return
     return {
+        client,
         success: !connectionError,
         error: connectionError && connectionError.toString()
     };

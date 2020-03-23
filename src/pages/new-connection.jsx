@@ -174,14 +174,15 @@ export default class NewConnection extends React.Component {
         await this.setState({ testingConnection: true, testingConnectionID });
 
         //Test connection
-        const result = await ipc.callMain("testConnection", {
+        const result = await ipc.callMain("connect", {
             hostname: this.state.hostname,
             port: this.state.port,
             srv: this.state.srv,
             authenticationEnabled: this.state.authenticationEnabled,
             username: this.state.username,
             password: this.state.password,
-            authenticationDatabase: this.state.authenticationDatabase
+            authenticationDatabase: this.state.authenticationDatabase,
+            testConnection: true
         });
 
         //Set testing connection result
