@@ -16,7 +16,7 @@ export default class Popup extends React.Component {
 
                 {this.props.jsx || <p className={`message ${this.props.codeblock && "codeblock"}`}>{this.props.message}</p>}
 
-                <p className="confirm-button" onClick={this.props.confirm}>{this.props.confirmText || "Confirm"}</p>
+                <p className={`confirm-button ${this.props.confirmDisabled && "disabled"}`} onClick={this.props.confirmDisabled ? null : this.props.confirm}>{this.props.confirmText || "Confirm"}</p>
                 {this.props.cancel && <p className="cancel-button" onClick={this.props.cancel}>{this.props.cancelText || "Cancel"}</p>}
 
             </div>

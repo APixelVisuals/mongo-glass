@@ -78,6 +78,16 @@
             &:hover {
                 background-color: #24a03c;
             }
+
+            &.disabled {
+                color: #ffffffb7;
+                border: 2px #24a03d62 solid;
+                cursor: not-allowed;
+
+                &:hover {
+                    background-color: transparent;
+                }
+            }
         }
 
         .cancel-button {
