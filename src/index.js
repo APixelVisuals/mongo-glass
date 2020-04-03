@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Index from "./pages/index";
 import NewConnection from "./pages/new-connection";
 import EditConnection from "./pages/edit-connection";
+import Databases from "./pages/databases";
 import "./index.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -19,7 +20,8 @@ const store = new (window.require("electron-store"))();
             this.pages = {
                 "/": Index,
                 "/new-connection": NewConnection,
-                "/edit-connection": EditConnection
+                "/edit-connection": EditConnection,
+                "/databases": Databases
             };
 
             const lastPage = ((DEV && store.get("lastPage")) || { path: "/" });

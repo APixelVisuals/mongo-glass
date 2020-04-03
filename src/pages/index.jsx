@@ -43,7 +43,7 @@ export default class Index extends React.Component {
                         </div>
 
                         <div className="buttons">
-                            <p className="connect-button" onClick={() => this.props.setPage("/database", { id: c.id })}>Connect</p>
+                            <p className="connect-button" onClick={() => this.props.setPage("/databases", { id: c.id })}>Connect</p>
                             <p className="edit-button" onClick={() => this.props.setPage("/edit-connection", { id: c.id })}>Edit Connection</p>
                         </div>
 

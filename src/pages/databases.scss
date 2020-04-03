@@ -1,0 +1,282 @@
+@import "../global";
+
+#databases {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+
+    .tooltip {
+        font-family: "Roboto";
+        font-size: 18px;
+        text-align: center;
+        background-color: #00380b;
+    }
+
+    .__react_component_tooltip::after {
+        border-top-color: #00380b;
+    }
+
+    .title {
+        display: inline-block;
+        color: white;
+        font-family: "Roboto";
+        font-size: 65px;
+        margin-top: 65px;
+        @include center;
+    }
+
+    .back-button {
+        position: fixed;
+        width: 0px;
+        height: 0px;
+        top: 65px;
+        left: 65px;
+        border: 15px transparent solid;
+        border-right: 15px white solid;
+        cursor: pointer;
+    }
+
+    .delete-database {
+        .name {
+            display: inline-block;
+            color: white;
+            font-family: "Roboto";
+            font-size: 35px;
+            white-space: nowrap;
+            @include center;
+        }
+
+        .delete-database-description {
+            display: inline-block;
+            width: 80%;
+            color: white;
+            font-family: "Roboto";
+            font-size: 25px;
+            text-align: center;
+            margin: auto;
+            @include center;
+
+            span {
+                color: #24a03c;
+            }
+        }
+
+        .textbox {
+            width: 80%;
+            height: 45px;
+            color: white;
+            font-family: "Roboto";
+            font-size: 23px;
+            text-align: center;
+            background-color: #ffffff18;
+            border: none;
+            border-bottom: 2px #24a03c solid;
+            outline: none;
+            margin-top: 35px;
+            transition: 0.25s ease-out, border-color 0.25s ease-out;
+            @include center;
+
+            &:focus {
+                background-color: #ffffff25;
+            }
+        }
+    }
+
+    .description {
+        display: inline-block;
+        color: white;
+        font-family: "Roboto";
+        font-size: 35px;
+        margin: auto;
+        margin-top: 35px;
+        @include center;
+    }
+
+    .databases {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-bottom: 165px;
+
+        .admin-database-button {
+            position: fixed;
+            width: 35px;
+            height: 35px;
+            top: 65px;
+            right: 65px;
+            cursor: pointer;
+        }
+
+        .local-database-button {
+            position: fixed;
+            width: 35px;
+            height: 35px;
+            top: 135px;
+            right: 65px;
+            cursor: pointer;
+        }
+
+        .database {
+            display: flex;
+            width: 250px;
+            flex-wrap: wrap;
+            background-color: #ffffff13;
+            border-radius: 10px;
+            padding: 35px;
+            margin: 35px;
+            transition: 0.25s;
+
+            &:hover {
+                box-shadow: 0px 10px 50px 5px #ffffff13;
+                transform: translate(0, -5px);
+            }
+
+            .content {
+                width: 100%;
+
+                .name {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .icon {
+                        position: relative;
+                        min-width: 45px;
+                        min-height: 45px;
+
+                        img {
+                            position: absolute;
+                            width: 45px;
+                            height: 45px;
+                            top: 0px;
+                            left: 0px;
+                            border-radius: 50%;
+                            transition: 0.5s ease-out;
+
+                            &.new {
+                                background-color: #000000c4;
+                                opacity: 0;
+                                cursor: pointer;
+
+                                &:hover {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+                    }
+
+                    .text {
+                        color: white;
+                        font-family: "Roboto";
+                        font-size: 25px;
+                        margin: 0px;
+                        margin-left: 20px;
+                    }
+                }
+
+                .size {
+                    display: inline-block;
+                    color: #ffffff5d;
+                    font-family: "Roboto";
+                    font-size: 20px;
+                    @include center;
+                }
+
+                .collections {
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+
+                    .icon {
+                        width: 25px;
+                        height: auto;
+                    }
+
+                    .text {
+                        color: white;
+                        font-family: "Roboto";
+                        font-size: 20px;
+                        margin: 0px;
+                        margin-left: 15px;
+                    }
+                }
+            }
+
+            .buttons {
+                width: 100%;
+                align-self: flex-end;
+                margin-top: 25px;
+
+                .view-button {
+                    display: inline-block;
+                    color: white;
+                    font-family: "Roboto";
+                    font-size: 20px;
+                    border: 2px #24a03c solid;
+                    border-radius: 5px;
+                    padding: 10px 35px;
+                    cursor: pointer;
+                    transition: 0.25s;
+                    @include center;
+
+                    &:hover {
+                        background-color: #24a03c;
+                    }
+                }
+
+                .delete-button {
+                    display: inline-block;
+                    color: #ffffff5d;
+                    font-family: "Roboto";
+                    font-size: 20px;
+                    white-space: nowrap;
+                    margin: auto;
+                    cursor: pointer;
+                    @include center;
+                }
+            }
+        }
+
+        .new-database {
+            display: flex;
+            width: 250px;
+            align-items: center;
+            border: 5px #ffffff13 solid;
+            border-radius: 10px;
+            padding: 35px;
+            margin: 35px;
+            cursor: pointer;
+            transition: 0.25s;
+
+            &:hover {
+                box-shadow: 0px 10px 50px 5px #ffffff13;
+                transform: translate(0, -5px);
+            }
+
+            .content {
+                width: 100%;
+                padding: 45px 0px;
+
+                .icon {
+                    width: 100px;
+                    height: auto;
+                    opacity: 0.25;
+                    @include center;
+                }
+
+                .text {
+                    display: inline-block;
+                    color: white;
+                    font-family: "Roboto";
+                    font-size: 25px;
+                    white-space: nowrap;
+                    margin: auto;
+                    margin-top: 35px;
+                    @include center;
+                }
+            }
+        }
+    }
+}
