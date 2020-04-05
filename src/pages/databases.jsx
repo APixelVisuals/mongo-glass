@@ -11,9 +11,9 @@ export default class Databases extends React.Component {
     constructor(props) {
         super(props);
 
-        this.connection = store.get("connections").find(c => c.id === this.props.data.id);
+        const connection = store.get("connections").find(c => c.id === this.props.data.connectionID);
 
-        this.state = { connectionName: this.connection.name };
+        this.state = { connectionName: connection.name };
     };
 
     render = () => (
@@ -67,7 +67,7 @@ export default class Databases extends React.Component {
                         data-class="tooltip"
                         className="admin-database-button"
                         onMouseOver={Tooltip.rebuild}
-                        onClick={() => this.props.setPage("/collections", { id: this.props.data.id, database: "admin" })}
+                        onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: "admin" })}
                     />
 
                     <img
@@ -76,7 +76,7 @@ export default class Databases extends React.Component {
                         data-effect="solid"
                         data-class="tooltip"
                         className="local-database-button"
-                        onClick={() => this.props.setPage("/collections", { id: this.props.data.id, database: "local" })}
+                        onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: "local" })}
                     />
 
                     {this.state.databases.map(d => (
@@ -102,14 +102,14 @@ export default class Databases extends React.Component {
                             </div>
 
                             <div className="buttons">
-                                <p className="view-button" onClick={() => this.props.setPage("/collections", { id: this.props.data.id, database: d.name })}>View</p>
+                                <p className="view-button" onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: d.name })}>View</p>
                                 <p className="delete-button" onClick={() => this.setState({ deleteDatabase: d.name })}>Delete Database</p>
                             </div>
 
                         </div>
                     ))}
 
-                    <div className="new-database" onClick={() => this.props.setPage("/new-database", { id: this.props.data.id })}>
+                    <div className="new-database" onClick={() => this.props.setPage("/new-database", { connectionID: this.props.data.connectionID })}>
 
                         <div className="content">
                             <img src="/new.svg" className="icon" />
@@ -125,20 +125,6 @@ export default class Databases extends React.Component {
     );
 
     componentDidMount = async () => {
-
-        //Get password
-        const password = await ipc.callMain("keytar", { keytarFunction: "getPassword", params: ["MongoGlass", this.props.data.id.toString()] });
-
-        //Connect to DB
-        await ipc.callMain("connect", {
-            hostname: this.connection.hostname,
-            port: this.connection.port,
-            srv: this.connection.srv,
-            authenticationEnabled: this.connection.authentication.enabled,
-            username: this.connection.authentication.username,
-            password,
-            authenticationDatabase: this.connection.authentication.authenticationDatabase
-        });
 
         //Get databases
         const databases = await ipc.callMain("getDatabases");

@@ -19,12 +19,28 @@ module.exports = () => {
     //Connect
     ipc.answerRenderer("connect", async data => {
 
+        //Connect
         const result = await connect(data);
 
+        //Set client
         if (!data.testConnection) client = result.client;
-
         delete result.client;
+
+        //Return
         return result;
+    });
+
+    //Close connection
+    ipc.answerRenderer("closeConnection", () => {
+
+        //No connection
+        if (!client) return;
+
+        //Close connection
+        client.close();
+
+        //Set client
+        client = null;
     });
 
     //Get Databases

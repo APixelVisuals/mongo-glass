@@ -16,6 +16,7 @@ const store = new (window.require("electron-store"))();
 
         constructor(props) {
             super(props);
+            this.state = {};
 
             this.pages = {
                 "/": Index,
@@ -26,14 +27,48 @@ const store = new (window.require("electron-store"))();
 
             const lastPage = ((DEV && store.get("lastPage")) || { path: "/" });
 
-            this.state = { page: this.pages[lastPage.path], data: lastPage.data };
+            this.setPage(lastPage.path, lastPage.data);
         };
 
-        render = () => (
-            <this.state.page setPage={this.setPage} data={this.state.data} />
-        );
+        render = () => this.state.page ? <this.state.page setPage={this.setPage} data={this.state.data} /> : null;
 
-        setPage = (path, data) => {
+        setPage = async (path, data) => {
+
+            //Set connection
+            if ((data) && (data.connectionID) && ((data.connectionID !== this.lastConnectionID))) {
+
+                //Set last connection ID
+                this.lastConnectionID = data.connectionID;
+
+                //Close connection
+                ipc.callMain("closeConnection");
+
+                //Get connection data
+                const connection = store.get("connections").find(c => c.id === data.connectionID);
+                const password = await ipc.callMain("keytar", { keytarFunction: "getPassword", params: ["MongoGlass", data.connectionID.toString()] });
+
+                //Connect
+                await ipc.callMain("connect", {
+                    hostname: connection.hostname,
+                    port: connection.port,
+                    srv: connection.srv,
+                    authenticationEnabled: connection.authentication.enabled,
+                    username: connection.authentication.username,
+                    password,
+                    authenticationDatabase: connection.authentication.authenticationDatabase
+                });
+            }
+            else if ((!data) || (!data.connectionID)) {
+
+                //Set last connection ID
+                this.lastConnectionID = undefined;
+
+                //Close connection
+                await ipc.callMain("closeConnection");
+            }
+
+            //Since state gets updated so quickly, react gets a little confused, awaiting something fixes it
+            await (() => new Promise(resolve => resolve()))();
 
             //Set data
             this.setState({ page: this.pages[path], data });
