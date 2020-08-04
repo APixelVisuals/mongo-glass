@@ -4,6 +4,7 @@ module.exports = () => {
     const { ipcMain: ipc } = require("electron-better-ipc");
     const keytar = require("./ipc/keytar");
     const connect = require("./ipc/connect");
+    const createDatabase = require("./ipc/createDatabase");
     const getDatabases = require("./ipc/getDatabases");
     const deleteDatabase = require("./ipc/deleteDatabase");
 
@@ -43,8 +44,11 @@ module.exports = () => {
         client = null;
     });
 
+    //Create Database
+    ipc.answerRenderer("createDatabase", async data => await createDatabase(client, data));
+
     //Get Databases
-    ipc.answerRenderer("getDatabases", async () => await getDatabases(client));
+    ipc.answerRenderer("getDatabases", async data => await getDatabases(client, data || {}));
 
     //Delete Database
     ipc.answerRenderer("deleteDatabase", async data => await deleteDatabase(client, data));

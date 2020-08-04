@@ -1,0 +1,204 @@
+@import "../global";
+
+#new-database {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+
+    .title {
+        display: inline-block;
+        color: white;
+        font-family: "Roboto";
+        font-size: 65px;
+        margin-top: 65px;
+        @include center;
+    }
+
+    .back-button {
+        position: fixed;
+        width: 0px;
+        height: 0px;
+        top: 65px;
+        left: 65px;
+        border: 15px transparent solid;
+        border-right: 15px white solid;
+        cursor: pointer;
+    }
+
+    .settings {
+        .setting {
+            display: inline-block;
+            width: 350px;
+            margin: 35px 0px;
+            @include center;
+
+            .name {
+                color: white;
+                font-family: "Roboto";
+                font-size: 25px;
+                margin: 0px;
+                margin-left: 15px;
+            }
+
+            &.setting-toggle-switch {
+                display: inline-flex;
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 35px;
+
+                .name {
+                    margin-left: 0px;
+                }
+
+                .toggle-switch {
+                    margin-left: 25px;
+                }
+            }
+
+            .textbox {
+                width: 100%;
+                height: 45px;
+                color: white;
+                font-family: "Roboto";
+                font-size: 23px;
+                text-align: center;
+                background-color: #ffffff18;
+                border: none;
+                border-bottom: 2px #24a03c solid;
+                outline: none;
+                margin-top: 15px;
+                transition: 0.25s ease-out, border-color 0.25s ease-out;
+                @include center;
+
+                &:focus {
+                    background-color: #ffffff25;
+                }
+
+                &.errors {
+                    border-color: #ff3e3e;
+                }
+            }
+
+            .error {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                margin-top: 35px;
+
+                img {
+                    width: auto;
+                    height: 20px;
+                }
+
+                p {
+                    color: white;
+                    font-family: "Roboto";
+                    font-size: 20px;
+                    margin: 0px;
+                    margin-left: 15px;
+                }
+            }
+        }
+
+        .setting-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+
+            .setting {
+                margin-left: 0px;
+                transform: none;
+            }
+        }
+
+        .divider {
+            display: inline-block;
+            width: 80%;
+            height: 2px;
+            background-color: #ffffff25;
+            margin: 35px 0px;
+            @include center;
+        }
+
+        .custom-collation {
+            width: 100%;
+            overflow: hidden;
+            margin: 35px 0px;
+            transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+            .setting-title {
+                display: flex;
+                width: 100%;
+                flex-wrap: nowrap;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 35px;
+
+                .text {
+                    color: white;
+                    font-family: "Roboto";
+                    font-size: 25px;
+                    margin: 0px;
+                }
+
+                .toggle-switch {
+                    margin-left: 25px;
+                }
+            }
+
+            .locale-settings {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: center;
+
+                .setting {
+                    margin: 35px 35px;
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    .save-button {
+        display: inline-block;
+        color: white;
+        font-family: "Roboto";
+        font-size: 20px;
+        border: 2px #24a03c solid;
+        border-radius: 5px;
+        padding: 10px 35px;
+        margin: auto;
+        margin-top: 35px;
+        cursor: pointer;
+        transition: 0.25s;
+        @include center;
+
+        &:hover {
+            background-color: #24a03c;
+
+            &.error {
+                background-color: #ff3e3e;
+            }
+        }
+
+        &.error {
+            border-color: #ff3e3e;
+        }
+    }
+
+    .cancel-button {
+        display: inline-block;
+        color: #ffffff5d;
+        font-family: "Roboto";
+        font-size: 20px;
+        white-space: nowrap;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 65px;
+        cursor: pointer;
+        @include center;
+    }
+}

@@ -1,0 +1,35 @@
+@import "../global";
+
+#slider {
+    .rc-slider {
+        max-width: 400px;
+        margin-top: 15px;
+        margin-bottom: 35px;
+
+        .rc-slider-rail {
+            background-color: #ffffff25;
+        }
+
+        .rc-slider-track {
+            background-color: #ffffffcc;
+        }
+
+        .rc-slider-handle {
+            background-color: #24a03c;
+            border: none;
+        }
+
+        .rc-slider-tooltip-inner {
+            height: 35px;
+            font-family: "Roboto";
+            font-size: 20px;
+            background-color: #00380b;
+            box-shadow: 0 0 4px #00380b;
+            padding-top: 8px;
+        }
+
+        .rc-slider-tooltip-arrow {
+            border-top-color: #00380b;
+        }
+    }
+}

@@ -1,15 +1,18 @@
-module.exports = async client => {
+module.exports = async (client, { namesOnly }) => {
 
     //Get databases
     let { databases } = await client.db().admin().listDatabases();
 
-    //Get stats
-    databases = await Promise.all(databases.filter(d => !["admin", "local"].includes(d.name)).map(async d => {
+    //Parse databases
+    databases = databases.map(d => d.name).filter(d => !["admin", "local"].includes(d));
 
-        const stats = await client.db(d.name).stats();
+    //Get stats
+    if (!namesOnly) databases = await Promise.all(databases.map(async d => {
+
+        const stats = await client.db(d).stats();
 
         return {
-            name: d.name,
+            name: d,
             size: stats.storageSize,
             collections: stats.collections
         };

@@ -1,0 +1,49 @@
+@import "../global";
+
+.dropdown {
+    background-color: #ffffff18;
+    border-bottom: 2px #24a03c solid;
+    margin-top: 15px;
+
+    .dropdown-control {
+        background-color: transparent;
+        border: none;
+    }
+
+    .dropdown-text {
+        color: white;
+        font-family: "Roboto";
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .dropdown-arrow {
+        border-width: 5px 5px;
+        border-color: white transparent transparent;
+        margin-top: 7px;
+    }
+
+    .dropdown-menu {
+        background-color: #1a251c;
+        border: 1px #ffffff35 solid;
+    }
+
+    .Dropdown-option {
+        color: white;
+        font-family: "Roboto";
+        font-size: 20px;
+        text-align: center;
+
+        &:hover {
+            background-color: #ffffff18;
+        }
+
+        &.none {
+            font-style: italic;
+        }
+
+        &.is-selected {
+            background-color: #81b88c35;
+        }
+    }
+}
