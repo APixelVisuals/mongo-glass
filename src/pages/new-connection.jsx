@@ -1,8 +1,9 @@
 import React from "react";
-import Tooltip from "react-tooltip";
-import ToggleSwitch from "react-switch";
 import Background from "../components/Background";
 import Popup from "../components/Popup";
+import Settings from "../components/settings/Settings";
+import SettingsGroup from "../components/settings/SettingsGroup";
+import Setting from "../components/settings/Setting";
 import "./new-connection.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -13,15 +14,12 @@ export default class NewConnection extends React.Component {
         super(props);
         this.state = {};
         this.canceledTestingConnections = [];
-        this.authenticationRef = React.createRef();
     };
 
     render = () => (
         <div id="new-connection">
 
             <Background />
-
-            <Tooltip />
 
             <h1 className="title">New Connection</h1>
 
@@ -44,119 +42,187 @@ export default class NewConnection extends React.Component {
                 />
             )}
 
-            <div className="settings">
+            <Settings
+                parsers={{
+                    name: {
+                        default: "",
+                        defaultErrors: ["You must enter a name"],
+                        input: (value, { name }) => {
 
-                <div className="setting">
-                    <p className="name">Name</p>
-                    <input type="text" className={`textbox ${this.state.nameError && "error"}`} onInput={e => this.setState({ name: e.target.value, nameError: false })} value={this.state.name} />
-                    {this.state.nameError && <p className="name-error">You must provide a name</p>}
-                </div>
+                            name.errors = [];
 
-                <div className="host">
+                            name.value = value;
 
-                    <div className="setting">
-                        <p className="name">Hostname</p>
-                        <input type="text" className="textbox" onInput={e => this.setState({ hostname: e.target.value })} value={this.state.hostname} placeholder="127.0.0.1" />
-                    </div>
-
-                    <div className="setting small">
-                        {this.state.srv ?
-                            (
-                                <p className="disable-srv-button" onClick={() => this.setState({ srv: false })}>Disable SRV</p>
-                            ) :
-                            (
-                                <div>
-                                    <p className="name">Port <span onClick={() => this.setState({ srv: true })}>Use SRV</span></p>
-                                    <input type="text" className="textbox" onInput={e => this.setState({ port: e.target.value.replace(/[^0-9]/g, "") })} value={this.state.port} placeholder="27017" />
-                                </div>
-                            )
+                            if (!value.length) name.errors.push("You must enter a name");
+                            if (value.length > 50) name.errors.push("The name can't be more than 50 characters");
                         }
+                    },
+                    hostname: {
+                        default: "",
+                        input: (value, { hostname }) => hostname.value = value
+                    },
+                    port: {
+                        default: 0,
+                        input: (value, { port }) => port.value = value
+                    },
+                    srv: {
+                        default: false,
+                        input: (value, { srv }) => srv.value = !srv.value
+                    },
+                    authenticationEnabled: {
+                        default: false,
+                        input: (value, { authenticationEnabled }) => authenticationEnabled.value = !authenticationEnabled.value
+                    },
+                    username: {
+                        default: "",
+                        input: (value, { username }) => username.value = value
+                    },
+                    password: {
+                        default: "",
+                        input: (value, { password }) => password.value = value
+                    },
+                    authenticationDatabase: {
+                        default: "",
+                        input: (value, { authenticationDatabase }) => authenticationDatabase.value = value
+                    }
+                }}
+                settings={(data, input) => (
+                    <div>
+
+                        <SettingsGroup>
+
+                            <Setting
+                                name="name"
+                                title="Name"
+                                type="textbox"
+                                input={input}
+                                value={data.name.value}
+                                errors={data.name.errors}
+                            />
+
+                        </SettingsGroup>
+
+                        <SettingsGroup inline={true}>
+
+                            <Setting
+                                name="hostname"
+                                title="Hostname"
+                                type="textbox"
+                                placeholder="127.0.0.1"
+                                input={input}
+                                value={data.hostname.value}
+                            />
+
+                            {data.srv.value ?
+                                (
+                                    <Setting
+                                        name="srv"
+                                        title="Disable SRV"
+                                        type="button"
+                                        input={input}
+                                    />
+                                ) :
+                                (
+                                    <Setting
+                                        name="port"
+                                        title="Port"
+                                        type="number"
+                                        small={true}
+                                        placeholder="27017"
+                                        input={input}
+                                        min={0}
+                                        max={65535}
+                                        value={data.port.value || ""}
+                                        alternateOption={{
+                                            name: "srv",
+                                            title: "Use SRV",
+                                            input,
+                                            enabled: data.srv.value
+                                        }}
+                                    />
+                                )
+                            }
+
+                        </SettingsGroup>
+
+                        <div className="divider" />
+
+                        <SettingsGroup
+                            title="Authentication"
+                            toggleData={{
+                                name: "authenticationEnabled",
+                                input,
+                                enabled: data.authenticationEnabled.value
+                            }}
+                        >
+
+                            <Setting
+                                name="username"
+                                title="Username"
+                                type="textbox"
+                                input={input}
+                                value={data.username.value}
+                                errors={data.username.errors}
+                            />
+
+                            <Setting
+                                name="password"
+                                title="Password"
+                                type="textbox"
+                                password={true}
+                                input={input}
+                                value={data.password.value}
+                                errors={data.password.errors}
+                            />
+
+                            <Setting
+                                name="authenticationDatabase"
+                                title="Authentication Database"
+                                type="textbox"
+                                placeholder="admin"
+                                input={input}
+                                value={data.authenticationDatabase.value}
+                                errors={data.authenticationDatabase.errors}
+                            />
+
+                        </SettingsGroup>
+
                     </div>
-
-                </div>
-
-                <div className="divider" />
-
-                <div className="authentication" style={{ height: ((this.state.authenticationEnabled) && (this.authenticationRef.current)) ? this.authenticationRef.current.scrollHeight : "33px" }} ref={this.authenticationRef}>
-
-                    <div className="setting-title">
-                        <p className="text">Authentication</p>
-                        <ToggleSwitch
-                            checked={this.state.authenticationEnabled}
-                            onChange={() => this.setState({ authenticationEnabled: !this.state.authenticationEnabled })}
-                            onColor="#24a03c"
-                            offColor="#262f28"
-                            width={55}
-                            height={25}
-                            checkedIcon={false}
-                            uncheckedIcon={false}
-                            activeBoxShadow={null}
-                            className="toggle-switch"
-                        />
-                    </div>
-
-                    <div className="setting">
-                        <p className="name">Username</p>
-                        <input type="text" className="textbox" tabIndex={this.state.authenticationEnabled ? "0" : "-1"} onInput={e => this.setState({ username: e.target.value })} value={this.state.username} />
-                    </div>
-
-                    <div className="setting">
-                        <p className="name">Password</p>
-                        <input type="password" className="textbox" tabIndex={this.state.authenticationEnabled ? "0" : "-1"} onInput={e => this.setState({ password: e.target.value })} value={this.state.password} />
-                    </div>
-
-                    <div className="setting">
-                        <p className="name">Authentication Database</p>
-                        <input type="text" className="textbox" tabIndex={this.state.authenticationEnabled ? "0" : "-1"} onInput={e => this.setState({ authenticationDatabase: e.target.value })} value={this.state.authenticationDatabase} placeholder="admin" />
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div className="save-test-buttons">
-                <p className={`save-button ${this.state.nameError && "error"}`} onClick={this.save}>Save</p>
-                <img
-                    src="/flask.svg"
-                    data-tip="Test Connection"
-                    data-effect="solid"
-                    data-class="tooltip"
-                    className="test-button"
-                    onClick={this.testConnection}
-                />
-            </div>
-            <p className="cancel-button" onClick={() => this.setState({ cancelWarning: true })}>Cancel</p>
+                )}
+                save={this.save}
+                alwaysDisplaySaveWarning={true}
+                saveWarningCustomButton={{
+                    icon: "flask",
+                    tooltip: "Test Connection",
+                    input: this.testConnection
+                }}
+            />
 
         </div>
     );
 
-    componentDidMount = () => this.forceUpdate();
-
-    save = async () => {
+    save = async data => {
 
         //Get data
         const connections = store.get("connections") || [];
         const nextConnectionID = store.get("nextConnectionID") || 1;
 
-        //No name
-        if (!this.state.name) return this.setState({ nameError: true });
-
         //Add connection
         connections.push(JSON.parse(JSON.stringify({
             id: nextConnectionID,
-            name: this.state.name,
-            hostname: this.state.hostname || "127.0.0.1",
-            port: parseInt(this.state.port) || 27017,
-            srv: this.state.srv || undefined,
+            name: data.name.value,
+            hostname: data.hostname.value || "127.0.0.1",
+            port: parseInt(data.port.value) || 27017,
+            srv: data.srv.value || undefined,
             authentication: {
-                enabled: this.state.authenticationEnabled || undefined,
-                username: this.state.username || undefined,
-                authenticationDatabase: this.state.authenticationDatabase || "admin"
+                enabled: data.authenticationEnabled.value || undefined,
+                username: data.username.value || undefined,
+                authenticationDatabase: data.authenticationDatabase.value || "admin"
             }
         })));
 
         //Save data
-        if (this.state.password) await ipc.callMain("keytar", { keytarFunction: "setPassword", params: ["MongoGlass", nextConnectionID.toString(), this.state.password] });
+        if (data.password.value) await ipc.callMain("keytar", { keytarFunction: "setPassword", params: ["MongoGlass", nextConnectionID.toString(), data.password.value] });
 
         store.set("connections", connections);
         store.set("nextConnectionID", nextConnectionID + 1);
@@ -165,7 +231,7 @@ export default class NewConnection extends React.Component {
         this.props.setPage("/");
     };
 
-    testConnection = async () => {
+    testConnection = async data => {
 
         //Generate testing connection ID
         const testingConnectionID = `${Date.now()}${Math.floor(Math.random() * 99) + 1}`;
@@ -175,13 +241,13 @@ export default class NewConnection extends React.Component {
 
         //Test connection
         const result = await ipc.callMain("connect", {
-            hostname: this.state.hostname,
-            port: this.state.port,
-            srv: this.state.srv,
-            authenticationEnabled: this.state.authenticationEnabled,
-            username: this.state.username,
-            password: this.state.password,
-            authenticationDatabase: this.state.authenticationDatabase,
+            hostname: data.hostname.value,
+            port: data.port.value,
+            srv: data.srv.value,
+            authenticationEnabled: data.authenticationEnabled.value,
+            username: data.username.value,
+            password: data.password.value,
+            authenticationDatabase: data.authenticationDatabase.value,
             testConnection: true
         });
 

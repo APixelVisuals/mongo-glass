@@ -1,9 +1,9 @@
 import React from "react";
-import ToggleSwitch from "react-switch";
 import Background from "../components/Background";
 import Popup from "../components/Popup";
-import Dropdown from "../components/Dropdown";
-import Slider from "../components/Slider";
+import Settings from "../components/settings/Settings";
+import SettingsGroup from "../components/settings/SettingsGroup";
+import Setting from "../components/settings/Setting";
 import "./new-database.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -46,222 +46,268 @@ export default class NewDatabase extends React.Component {
                         />
                     )}
 
-                    <div className="settings">
+                    <Settings
+                        parsers={{
+                            name: {
+                                default: "",
+                                defaultErrors: ["You must enter a name"],
+                                input: (value, { name }) => {
 
-                        <div className="setting">
-                            <p className="name">Database Name</p>
-                            <input type="text" className={`textbox ${this.state.data.name.errors.length && "errors"}`} onInput={e => this.input("name", e.target.value)} value={this.state.data.name.value} />
-                            {this.state.data.name.errors.map(e => (
-                                <div className="error">
-                                    <img src="/cross.svg" />
-                                    <p>{e}</p>
-                                </div>
-                            ))}
-                        </div>
+                                    name.errors = [];
 
-                        <div className="divider" />
+                                    name.value = value;
 
-                        <div className="setting">
-                            <p className="name">Collection Name</p>
-                            <input type="text" className={`textbox ${this.state.data.collectionName.errors.length && "errors"}`} onInput={e => this.input("collectionName", e.target.value)} value={this.state.data.collectionName.value} />
-                            {this.state.data.collectionName.errors.map(e => (
-                                <div className="error">
-                                    <img src="/cross.svg" />
-                                    <p>{e}</p>
-                                </div>
-                            ))}
-                        </div>
+                                    if (!value.length) name.errors.push("You must enter a name");
+                                    if (/[/\\."$ ]/.test(value)) name.errors.push("The name can't contain invalid characters");
+                                    if (this.state.databases.find(d => d.toLowerCase() === value.toLowerCase())) name.errors.push("That name is taken");
+                                }
+                            },
+                            collectionName: {
+                                default: "",
+                                defaultErrors: ["You must enter a name"],
+                                input: (value, { collectionName }) => {
 
-                        <div className="divider" />
+                                    collectionName.errors = [];
 
-                        <div className="custom-collation" style={{ height: ((this.state.cappedCollectionEnabled) && (this.cappedCollectionRef.current)) ? this.cappedCollectionRef.current.scrollHeight : "33px" }} ref={this.cappedCollectionRef}>
+                                    collectionName.value = value;
 
-                            <div className="setting-title">
-                                <p className="text">Capped Collection</p>
-                                <ToggleSwitch
-                                    checked={this.state.cappedCollectionEnabled}
-                                    onChange={() => this.setState({ cappedCollectionEnabled: !this.state.cappedCollectionEnabled })}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
+                                    if (!value.length) collectionName.errors.push("You must enter a name");
+                                    if ((value) && (!/^[A-Za-z_]/.test(value))) collectionName.errors.push("The name must start with a letter or underscore");
+                                    if (value.includes("$")) collectionName.errors.push("The name can't contain invalid characters");
+                                    if (value.startsWith("system.")) collectionName.errors.push(`The name can't start with "system."`);
+                                }
+                            },
+                            cappedCollectionEnabled: {
+                                default: false,
+                                input: (value, { cappedCollectionEnabled }) => cappedCollectionEnabled.value = !cappedCollectionEnabled.value
+                            },
+                            maximumSize: {
+                                default: 0,
+                                input: (value, { maximumSize }) => maximumSize.value = value
+                            },
+                            maximumDocuments: {
+                                default: 0,
+                                input: (value, { maximumDocuments }) => maximumDocuments.value = value
+                            },
+                            customCollationEnabled: {
+                                default: false,
+                                input: (value, { customCollationEnabled }) => customCollationEnabled.value = !customCollationEnabled.value
+                            },
+                            locale: {
+                                default: "en",
+                                input: (value, { locale, localeVariant }) => {
+                                    locale.value = value;
+                                    localeVariant.value = null;
+                                }
+                            },
+                            localeVariant: {
+                                default: null,
+                                input: (value, { localeVariant }) => localeVariant.value = value
+                            },
+                            strength: {
+                                default: 3,
+                                input: (value, { strength }) => strength.value = value
+                            },
+                            caseLevel: {
+                                default: false,
+                                input: (value, { caseLevel }) => caseLevel.value = !caseLevel.value
+                            },
+                            caseFirst: {
+                                default: "off",
+                                input: (value, { caseFirst }) => caseFirst.value = value
+                            },
+                            numericOrdering: {
+                                default: false,
+                                input: (value, { numericOrdering }) => numericOrdering.value = !numericOrdering.value
+                            },
+                            alternate: {
+                                default: "non-ignorable",
+                                input: (value, { alternate }) => alternate.value = value
+                            },
+                            maxVariable: {
+                                default: "punct",
+                                input: (value, { maxVariable }) => maxVariable.value = value
+                            },
+                            backwards: {
+                                default: false,
+                                input: (value, { backwards }) => backwards.value = !backwards.value
+                            },
+                            normalization: {
+                                default: false,
+                                input: (value, { normalization }) => normalization.value = !normalization.value
+                            }
+                        }}
+                        settings={(data, input) => (
+                            <div>
 
-                            <div className="setting">
-                                <p className="name">Maximum Size (Bytes)</p>
-                                <input type="text" className="textbox" onInput={e => this.input("cappedCollectionMaximumSize", e.target.value)} value={this.state.data.cappedCollectionMaximumSize.value || ""} />
-                            </div>
+                                <SettingsGroup>
 
-                            <div className="setting">
-                                <p className="name">Maximum Documents</p>
-                                <input type="text" className="textbox" onInput={e => this.input("cappedCollectionMaximumDocuments", e.target.value)} value={this.state.data.cappedCollectionMaximumDocuments.value || ""} />
-                            </div>
+                                    <Setting
+                                        name="name"
+                                        title="Name"
+                                        type="textbox"
+                                        input={input}
+                                        value={data.name.value}
+                                        errors={data.name.errors}
+                                    />
 
-                        </div>
+                                </SettingsGroup>
 
-                        <div className="divider" />
+                                <div className="divider" />
 
-                        <div className="custom-collation" style={{ height: ((this.state.customCollationEnabled) && (this.customCollationRef.current)) ? this.customCollationRef.current.scrollHeight : "33px" }} ref={this.customCollationRef}>
+                                <SettingsGroup>
 
-                            <div className="setting-title">
-                                <p className="text">Custom Collation</p>
-                                <ToggleSwitch
-                                    checked={this.state.customCollationEnabled}
-                                    onChange={() => this.setState({ customCollationEnabled: !this.state.customCollationEnabled })}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
+                                    <Setting
+                                        name="collectionName"
+                                        title="Collection Name"
+                                        type="textbox"
+                                        input={input}
+                                        value={data.collectionName.value}
+                                        errors={data.collectionName.errors}
+                                    />
 
-                            <div className="locale-settings">
+                                </SettingsGroup>
 
-                                <div className="setting">
-                                    <p className="name">Locale</p>
-                                    <Dropdown
+                                <div className="divider" />
+
+                                <SettingsGroup
+                                    title="Capped Collection"
+                                    toggleData={{
+                                        name: "cappedCollectionEnabled",
+                                        input,
+                                        enabled: data.cappedCollectionEnabled.value
+                                    }}
+                                >
+
+                                    <Setting
+                                        name="maximumSize"
+                                        title="Maximum Size (Bytes)"
+                                        type="number"
+                                        input={input}
+                                        min={0}
+                                        max={65535}
+                                        value={data.maximumSize.value || ""}
+                                    />
+
+                                    <Setting
+                                        name="maximumDocuments"
+                                        title="Maximum Documents"
+                                        type="number"
+                                        input={input}
+                                        min={0}
+                                        max={65535}
+                                        value={data.maximumDocuments.value || ""}
+                                    />
+
+                                </SettingsGroup>
+
+                                <div className="divider" />
+
+                                <SettingsGroup
+                                    title="Custom Collation"
+                                    toggleData={{
+                                        name: "customCollationEnabled",
+                                        input,
+                                        enabled: data.customCollationEnabled.value
+                                    }}
+                                >
+
+                                    <Setting
+                                        name="locale"
+                                        title="Locale"
+                                        type="dropdown"
+                                        input={input}
                                         options={this.locales.map(l => ({ value: l.code, label: l.name }))}
-                                        value={this.state.data.locale.value}
-                                        input={value => this.input("locale", value)}
+                                        value={data.locale.value}
                                     />
-                                </div>
 
-                                {this.locales.find(l => l.code === this.state.data.locale.value).variants && (
-                                    <div className="setting">
-                                        <p className="name">Locale Variant</p>
-                                        <Dropdown
-                                            options={[{ value: null, label: "None", className: "none" }, ...this.locales.find(l => l.code === this.state.data.locale.value).variants]}
-                                            value={this.state.data.localeVariant.value}
-                                            input={value => this.input("localeVariant", value)}
-                                            placeholder="None"
+                                    {this.locales.find(l => l.code === data.locale.value).variants && (
+                                        <Setting
+                                            name="localeVariant"
+                                            title="Locale Variant"
+                                            type="dropdown"
+                                            input={input}
+                                            options={[{ value: null, label: "None", className: "none" }, ...this.locales.find(l => l.code === data.locale.value).variants]}
+                                            value={data.localeVariant.value}
                                         />
-                                    </div>
-                                )}
+                                    )}
 
-                            </div>
+                                    <Setting
+                                        name="strength"
+                                        title="Strength"
+                                        type="slider"
+                                        input={input}
+                                        min={1}
+                                        max={5}
+                                        value={data.strength.value}
+                                    />
 
-                            <div className="setting">
-                                <p className="name">Strength</p>
-                                <Slider
-                                    value={this.state.data.strength.value}
-                                    input={value => this.input("strength", value)}
-                                    min={1}
-                                    max={5}
-                                />
-                            </div>
+                                    <Setting
+                                        name="caseLevel"
+                                        title="Case Level"
+                                        type="toggle"
+                                        input={input}
+                                        value={data.caseLevel.value}
+                                    />
 
-                            <div className="setting setting-toggle-switch">
-                                <p className="name">Case Level</p>
-                                <ToggleSwitch
-                                    checked={this.state.data.caseLevel.value}
-                                    onChange={() => this.input("caseLevel")}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
-
-                            <div className="setting-wrapper">
-                                <div className="setting">
-                                    <p className="name">Case First</p>
-                                    <Dropdown
+                                    <Setting
+                                        name="caseFirst"
+                                        title="Case First"
+                                        type="dropdown"
+                                        input={input}
                                         options={["off", "upper", "lower"]}
-                                        value={this.state.data.caseFirst.value}
-                                        input={value => this.input("caseFirst", value)}
+                                        value={data.caseFirst.value}
                                     />
-                                </div>
-                            </div>
 
-                            <div className="setting setting-toggle-switch">
-                                <p className="name">Numeric Ordering</p>
-                                <ToggleSwitch
-                                    checked={this.state.data.numericOrdering.value}
-                                    onChange={() => this.input("numericOrdering")}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
+                                    <Setting
+                                        name="numericOrdering"
+                                        title="Numeric Ordering"
+                                        type="toggle"
+                                        input={input}
+                                        value={data.numericOrdering.value}
+                                    />
 
-                            <div className="setting-wrapper">
-                                <div className="setting">
-                                    <p className="name">Alternate</p>
-                                    <Dropdown
+                                    <Setting
+                                        name="alternate"
+                                        title="Alternate"
+                                        type="dropdown"
+                                        input={input}
                                         options={["non-ignorable", "shifted"]}
-                                        value={this.state.data.alternate.value}
-                                        input={value => this.input("alternate", value)}
+                                        value={data.alternate.value}
                                     />
-                                </div>
-                            </div>
 
-                            <div className="setting-wrapper">
-                                <div className="setting">
-                                    <p className="name">Max Variable</p>
-                                    <Dropdown
+                                    <Setting
+                                        name="maxVariable"
+                                        title="Max Variable"
+                                        type="dropdown"
+                                        input={input}
                                         options={["punct", "space"]}
-                                        value={this.state.data.maxVariable.value}
-                                        input={value => this.input("maxVariable", value)}
+                                        value={data.maxVariable.value}
                                     />
-                                </div>
+
+                                    <Setting
+                                        name="backwards"
+                                        title="Backwards"
+                                        type="toggle"
+                                        input={input}
+                                        value={data.backwards.value}
+                                    />
+
+                                    <Setting
+                                        name="normalization"
+                                        title="Normalization"
+                                        type="toggle"
+                                        input={input}
+                                        value={data.normalization.value}
+                                    />
+
+                                </SettingsGroup>
+
                             </div>
-
-                            <div className="setting setting-toggle-switch">
-                                <p className="name">Backwards</p>
-                                <ToggleSwitch
-                                    checked={this.state.data.backwards.value}
-                                    onChange={() => this.input("backwards")}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
-
-                            <div className="setting setting-toggle-switch">
-                                <p className="name">Normalization</p>
-                                <ToggleSwitch
-                                    checked={this.state.data.normalization.value}
-                                    onChange={() => this.input("normalization")}
-                                    onColor="#24a03c"
-                                    offColor="#262f28"
-                                    width={55}
-                                    height={25}
-                                    checkedIcon={false}
-                                    uncheckedIcon={false}
-                                    activeBoxShadow={null}
-                                    className="toggle-switch"
-                                />
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <p className={`save-button ${this.state.nameError && "error"}`} onClick={this.save}>Save</p>
-                    <p className="cancel-button" onClick={() => this.setState({ cancelWarning: true })}>Cancel</p>
+                        )}
+                        save={this.save}
+                        alwaysDisplaySaveWarning={true}
+                    />
 
                 </div>
             )}
@@ -387,95 +433,32 @@ export default class NewDatabase extends React.Component {
             { code: "zu", name: "Zulu" }
         ];
 
-        //Set data
-        this.setState({
-            databases,
-            data: {
-                name: { value: null, errors: [] },
-                collectionName: { value: null, errors: [] },
-                cappedCollectionMaximumSize: { value: null },
-                cappedCollectionMaximumDocuments: { value: null },
-                locale: { value: "en" },
-                localeVariant: { value: null },
-                strength: { value: 3 },
-                caseLevel: { value: false },
-                caseFirst: { value: "off" },
-                numericOrdering: { value: false },
-                alternate: { value: "non-ignorable" },
-                maxVariable: { value: "punct" },
-                backwards: { value: false },
-                normalization: { value: false }
-            }
-        });
+        //Set databases
+        this.setState({ databases });
     };
 
-    input = (type, value) => {
-
-        //Get data
-        const data = this.state.data[type];
-        data.errors = [];
-
-        //Parse data
-        if (type === "name") {
-
-            data.value = value;
-
-            if (/[/\\."$ ]/.test(value)) data.errors.push("The name can't contain invalid characters");
-            if (this.state.databases.find(d => d.toLowerCase() === value.toLowerCase())) data.errors.push("That name is taken");
-        }
-        else if (type === "collectionName") {
-
-            data.value = value;
-
-            if ((value) && (!/^[A-Za-z_]/.test(value))) data.errors.push("The name must start with a letter or underscore");
-            if (value.includes("$")) data.errors.push("The name can't contain invalid characters");
-            if (value.startsWith("system.")) data.errors.push("The name can't start with system.");
-        }
-        else if (type === "locale") {
-            data.value = value;
-            this.state.data.localeVariant.value = null;
-        }
-        else if (type === "cappedCollectionMaximumSize") data.value = parseInt(value) || null;
-        else if (type === "cappedCollectionMaximumDocuments") data.value = parseInt(value) || null;
-        else if (type === "localeVariant") data.value = value;
-        else if (type === "strength") data.value = value;
-        else if (type === "caseLevel") data.value = !data.value;
-        else if (type === "caseFirst") data.value = value;
-        else if (type === "numericOrdering") data.value = !data.value;
-        else if (type === "alternate") data.value = value;
-        else if (type === "maxVariable") data.value = value;
-        else if (type === "backwards") data.value = !data.value;
-        else if (type === "normalization") data.value = !data.value;
-
-        //Force update
-        this.forceUpdate();
-    };
-
-    save = async () => {
-
-        //No name
-        if (!this.state.data.name.value) return this.setState({ nameError: true });
+    save = async data => {
 
         //Create database
         const error = await ipc.callMain("createDatabase", {
-            database: this.state.data.name.value,
+            database: data.name.value,
             collectionData: {
-                name: this.state.data.collectionName.value,
-                cappedCollection: this.state.data.cappedCollectionEnabled && {
-                    maximumSize: this.state.data.cappedCollectionMaximumSize.value,
-                    maximumDocuments: this.state.data.cappedCollectionMaximumDocuments.value
+                name: data.collectionName.value,
+                cappedCollection: data.cappedCollectionEnabled.value && {
+                    maximumSize: data.maximumSize.value,
+                    maximumDocuments: data.maximumDocuments.value
                 },
-                customCollation: this.state.data.customCollationEnabled && {
-                    locale: this.state.data.locale.value,
-                    localeVariant: this.state.data.localeVariant.value,
-                    strength: this.state.data.strength.value,
-                    caseLevel: this.state.data.caseLevel.value,
-                    caseFirst: this.state.data.caseFirst.value,
-                    numericOrdering: this.state.data.numericOrdering.value,
-                    alternate: this.state.data.alternate.value,
-                    maxVariable: this.state.data.maxVariable.value,
-                    backwards: this.state.data.backwards.value,
-                    normalization: this.state.data.normalization.value
+                customCollation: data.customCollationEnabled.value && {
+                    locale: data.locale.value,
+                    localeVariant: data.localeVariant.value,
+                    strength: data.strength.value,
+                    caseLevel: data.caseLevel.value,
+                    caseFirst: data.caseFirst.value,
+                    numericOrdering: data.numericOrdering.value,
+                    alternate: data.alternate.value,
+                    maxVariable: data.maxVariable.value,
+                    backwards: data.backwards.value,
+                    normalization: data.normalization.value
                 }
             }
         });

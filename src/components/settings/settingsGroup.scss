@@ -1,0 +1,80 @@
+@import "../../global";
+
+#settings-group {
+    display: inline-block;
+    width: 100%;
+
+    .settings-group-title {
+        display: flex;
+        width: 100%;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        margin: 35px 0px;
+
+        .collapsable-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            margin: 0px 35px;
+            cursor: pointer;
+
+            &.content-hidden {
+                cursor: default;
+
+                .arrow {
+                    border-top-color: #ffffff50;
+                    cursor: not-allowed;
+                }
+            }
+
+            .arrow {
+                width: 0px;
+                height: 0px;
+                border: 6px transparent solid;
+                border-top: 6px white solid;
+                margin-top: 6px;
+                margin-right: 35px;
+                transition: 0.25s;
+
+                &.collapsed {
+                    margin-top: 0px;
+                    margin-left: 6px;
+                    margin-right: 29px;
+                    transform: rotate(-90deg);
+                }
+            }
+
+            .text {
+                color: white;
+                font-family: "Roboto";
+                font-size: 25px;
+                margin: 0px;
+            }
+        }
+
+        .toggle-switch {
+            margin-right: 35px;
+        }
+    }
+
+    .settings-group-settings-wrapper {
+        overflow: hidden;
+        transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        .settings-group-settings {
+            display: flex;
+            width: 100%;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+
+            flex-direction: column;
+
+            &.inline {
+                flex-direction: row;
+            }
+        }
+    }
+}

@@ -161,44 +161,4 @@
             }
         }
     }
-
-    .save-button {
-        display: inline-block;
-        color: white;
-        font-family: "Roboto";
-        font-size: 20px;
-        border: 2px #24a03c solid;
-        border-radius: 5px;
-        padding: 10px 35px;
-        margin: auto;
-        margin-top: 35px;
-        cursor: pointer;
-        transition: 0.25s;
-        @include center;
-
-        &:hover {
-            background-color: #24a03c;
-
-            &.error {
-                background-color: #ff3e3e;
-            }
-        }
-
-        &.error {
-            border-color: #ff3e3e;
-        }
-    }
-
-    .cancel-button {
-        display: inline-block;
-        color: #ffffff5d;
-        font-family: "Roboto";
-        font-size: 20px;
-        white-space: nowrap;
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 65px;
-        cursor: pointer;
-        @include center;
-    }
 }

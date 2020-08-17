@@ -1,0 +1,89 @@
+@import "../../global";
+
+#save-warning {
+    position: fixed;
+    display: flex;
+    width: 500px;
+    height: 50px;
+    bottom: -55px;
+    flex-wrap: nowrap;
+    align-items: center;
+    background-color: #181818;
+    border: 1.5px #24a03c solid;
+    border-radius: 10px;
+    z-index: 75;
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1), border-color 0.25s ease-out;
+    @include center;
+
+    &.displayed {
+        bottom: 20px;
+    }
+
+    &.errors {
+        border-color: #ff3e3e;
+    }
+
+    .custom-button {
+        width: auto;
+        height: 25px;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+
+    .tooltip {
+        font-family: "Roboto";
+        font-size: 18px;
+        text-align: center;
+        background-color: #00380b;
+    }
+
+    .__react_component_tooltip::after {
+        border-top-color: #00380b;
+    }
+
+    .text {
+        color: white;
+        font-family: "Roboto";
+        font-size: 15px;
+        margin-left: 20px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-left: auto;
+
+        .reset-button {
+            color: white;
+            font-family: "Roboto";
+            font-size: 15px;
+            margin: 0px;
+            cursor: pointer;
+
+            &.saving {
+                cursor: not-allowed;
+            }
+        }
+
+        .save-button {
+            font-family: "Roboto";
+            font-size: 15px;
+            background-color: #24a03c;
+            border-radius: 5px;
+            padding: 7px 25px;
+            margin: 0px 20px;
+            cursor: pointer;
+            transition: 0.25s ease-out;
+
+            &.saving {
+                cursor: not-allowed;
+            }
+
+            &.errors {
+                background-color: #ff3e3e;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

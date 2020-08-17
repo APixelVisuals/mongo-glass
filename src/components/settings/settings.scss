@@ -1,0 +1,17 @@
+@import "../../global";
+
+#settings {
+    .settings-wrapper {
+        &.bottom-padding {
+            padding-bottom: 65px;
+        }
+
+        .divider {
+            width: 80%;
+            height: 2px;
+            background-color: #ffffff25;
+            margin: 35px 0px;
+            @include center;
+        }
+    }
+}
