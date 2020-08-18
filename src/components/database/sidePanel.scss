@@ -1,0 +1,134 @@
+@import "../../global";
+
+#side-panel {
+    position: fixed;
+    width: 350px;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    background-color: #152c19aa;
+
+    .title-section {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-top: 25px;
+
+        .side-panel-back-button {
+            width: 0px;
+            height: 0px;
+            border: 13px transparent solid;
+            border-right: 13px white solid;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+
+        .name {
+            margin: 0px auto;
+
+            .connection {
+                color: white;
+                font-family: "Roboto";
+                font-size: 18px;
+                text-align: center;
+                margin: auto;
+            }
+
+            .database {
+                color: #aaaaaa;
+                font-family: "Roboto";
+                font-size: 15px;
+                text-align: center;
+                text-transform: uppercase;
+                margin: auto;
+            }
+        }
+
+        .settings-button {
+            width: auto;
+            height: 25px;
+            margin-right: 25px;
+            cursor: pointer;
+        }
+    }
+
+    .divider {
+        width: 80%;
+        height: 2px;
+        background-color: #ffffff25;
+        margin: 25px 0px;
+        @include center;
+    }
+
+    .collections-name {
+        display: inline-block;
+        color: white;
+        font-family: "Roboto";
+        font-size: 18px;
+        text-transform: uppercase;
+        margin: auto;
+        margin-bottom: 15px;
+        @include center;
+    }
+
+    .collections {
+        height: calc(100vh - 121px);
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 2px;
+            background-color: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #ffffff80;
+        }
+
+        .collection {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            padding: 15px 0px;
+            cursor: pointer;
+            transition: 0.15s ease-out;
+
+            &:hover {
+                background-color: #ffffff18;
+
+                .settings-button {
+                    opacity: 0.35;
+                }
+            }
+
+            .name {
+                color: white;
+                font-family: "Roboto";
+                font-size: 18px;
+                margin: 0px;
+                margin-left: 25px;
+            }
+
+            .size {
+                color: #aaaaaa;
+                font-family: "Roboto";
+                font-size: 18px;
+                margin: 0px;
+                margin-left: 15px;
+            }
+
+            .settings-button {
+                width: auto;
+                height: 25px;
+                opacity: 0;
+                margin-left: auto;
+                margin-right: 25px;
+                cursor: pointer;
+                transition: 0.15s ease-out;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}

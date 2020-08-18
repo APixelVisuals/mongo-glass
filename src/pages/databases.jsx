@@ -67,7 +67,7 @@ export default class Databases extends React.Component {
                         data-class="tooltip"
                         className="admin-database-button"
                         onMouseOver={Tooltip.rebuild}
-                        onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: "admin" })}
+                        onClick={() => this.props.setPage("/database", { connectionID: this.props.data.connectionID, database: "admin" })}
                     />
 
                     <img
@@ -76,7 +76,7 @@ export default class Databases extends React.Component {
                         data-effect="solid"
                         data-class="tooltip"
                         className="local-database-button"
-                        onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: "local" })}
+                        onClick={() => this.props.setPage("/database", { connectionID: this.props.data.connectionID, database: "local" })}
                     />
 
                     {this.state.databases.map(d => (
@@ -102,7 +102,7 @@ export default class Databases extends React.Component {
                             </div>
 
                             <div className="buttons">
-                                <p className="view-button" onClick={() => this.props.setPage("/collections", { connectionID: this.props.data.connectionID, database: d.name })}>View</p>
+                                <p className="view-button" onClick={() => this.props.setPage("/database", { connectionID: this.props.data.connectionID, database: d.name })}>View</p>
                                 <p className="delete-button" onClick={() => this.setState({ deleteDatabase: d.name })}>Delete Database</p>
                             </div>
 

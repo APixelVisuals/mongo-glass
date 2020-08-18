@@ -1,0 +1,23 @@
+@import "../global";
+
+#databases {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+
+    .tooltip {
+        font-family: "Roboto";
+        font-size: 18px;
+        text-align: center;
+        background-color: #00380b;
+    }
+
+    .__react_component_tooltip::after {
+        border-top-color: #00380b;
+    }
+
+    .content {
+        width: calc(100% - 350px);
+        float: right;
+    }
+}

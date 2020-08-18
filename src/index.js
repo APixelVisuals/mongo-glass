@@ -5,6 +5,7 @@ import NewConnection from "./pages/new-connection";
 import EditConnection from "./pages/edit-connection";
 import Databases from "./pages/databases";
 import NewDatabase from "./pages/new-database";
+import Database from "./pages/database";
 import "./index.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -24,7 +25,8 @@ const store = new (window.require("electron-store"))();
                 "/new-connection": NewConnection,
                 "/edit-connection": EditConnection,
                 "/databases": Databases,
-                "/new-database": NewDatabase
+                "/new-database": NewDatabase,
+                "/database": Database
             };
 
             const lastPage = ((DEV && store.get("lastPage")) || { path: "/" });

@@ -7,6 +7,7 @@ module.exports = () => {
     const createDatabase = require("./ipc/createDatabase");
     const getDatabases = require("./ipc/getDatabases");
     const deleteDatabase = require("./ipc/deleteDatabase");
+    const getCollections = require("./ipc/getCollections");
 
     //Define client
     let client;
@@ -52,4 +53,7 @@ module.exports = () => {
 
     //Delete Database
     ipc.answerRenderer("deleteDatabase", async data => await deleteDatabase(client, data));
+
+    //Get Collections
+    ipc.answerRenderer("getCollections", async data => await getCollections(client, data));
 };
