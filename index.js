@@ -8,7 +8,7 @@ let window;
 electron.app.on("ready", () => {
 
     //Create window
-    window = new electron.BrowserWindow({ webPreferences: { nodeIntegration: true } });
+    window = new electron.BrowserWindow({ title: "MongoGlass", backgroundColor: "#000000", webPreferences: { nodeIntegration: true } });
     window.maximize();
 
     //Remove window reference when closed
