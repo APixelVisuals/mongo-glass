@@ -9,17 +9,17 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 105px;
+        margin-top: 85px;
 
         .logo {
-            width: 85px;
+            width: 65px;
             height: auto;
         }
 
         .text {
             color: white;
             font-family: "Roboto Black";
-            font-size: 65px;
+            font-size: 50px;
             margin: 0px;
             margin-left: 20px;
         }
@@ -29,7 +29,7 @@
         display: inline-block;
         color: #24a03c;
         font-family: "Roboto";
-        font-size: 25px;
+        font-size: 23px;
         margin-top: 10px;
         cursor: pointer;
         @include center;
@@ -39,7 +39,7 @@
         display: inline-block;
         color: white;
         font-family: "Roboto";
-        font-size: 35px;
+        font-size: 28px;
         margin: auto;
         margin-top: 35px;
         @include center;
@@ -75,7 +75,7 @@
                     width: 100%;
                     color: white;
                     font-family: "Roboto";
-                    font-size: 25px;
+                    font-size: 23px;
                     text-align: center;
                     margin: auto;
                 }
@@ -84,7 +84,7 @@
                     display: inline-block;
                     color: #ffffff5d;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
                     @include center;
 
                     .srv {
@@ -116,7 +116,7 @@
                     .text {
                         color: white;
                         font-family: "Roboto";
-                        font-size: 20px;
+                        font-size: 18px;
                         margin: 0px;
                         margin-left: 15px;
                     }
@@ -132,7 +132,7 @@
                     display: inline-block;
                     color: white;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
                     border: 2px #24a03c solid;
                     border-radius: 5px;
                     padding: 10px 35px;
@@ -149,7 +149,7 @@
                     display: inline-block;
                     color: #ffffff5d;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
                     white-space: nowrap;
                     margin: auto;
                     cursor: pointer;
@@ -189,7 +189,7 @@
                     display: inline-block;
                     color: white;
                     font-family: "Roboto";
-                    font-size: 25px;
+                    font-size: 23px;
                     white-space: nowrap;
                     margin: auto;
                     margin-top: 35px;

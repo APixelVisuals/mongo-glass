@@ -20,8 +20,8 @@
         display: inline-block;
         color: white;
         font-family: "Roboto";
-        font-size: 65px;
-        margin-top: 65px;
+        font-size: 50px;
+        margin-top: 85px;
         @include center;
     }
 
@@ -142,13 +142,13 @@
 
                     .icon {
                         position: relative;
-                        min-width: 45px;
-                        min-height: 45px;
+                        min-width: 35px;
+                        min-height: 35px;
 
                         img {
                             position: absolute;
-                            width: 45px;
-                            height: 45px;
+                            width: 35px;
+                            height: 35px;
                             top: 0px;
                             left: 0px;
                             border-radius: 50%;
@@ -169,7 +169,7 @@
                     .text {
                         color: white;
                         font-family: "Roboto";
-                        font-size: 25px;
+                        font-size: 23px;
                         margin: 0px;
                         margin-left: 20px;
                     }
@@ -179,7 +179,8 @@
                     display: inline-block;
                     color: #ffffff5d;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
+                    margin-top: 15px;
                     @include center;
                 }
 
@@ -213,7 +214,7 @@
                     display: inline-block;
                     color: white;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
                     border: 2px #24a03c solid;
                     border-radius: 5px;
                     padding: 10px 35px;
@@ -230,7 +231,7 @@
                     display: inline-block;
                     color: #ffffff5d;
                     font-family: "Roboto";
-                    font-size: 20px;
+                    font-size: 18px;
                     white-space: nowrap;
                     margin: auto;
                     cursor: pointer;
@@ -270,7 +271,7 @@
                     display: inline-block;
                     color: white;
                     font-family: "Roboto";
-                    font-size: 25px;
+                    font-size: 23px;
                     white-space: nowrap;
                     margin: auto;
                     margin-top: 35px;
