@@ -33,7 +33,10 @@ export default class Index extends React.Component {
 
                             <p className="name">{c.name}</p>
 
-                            <p className="host">{c.hostname}<span className={c.srv ? "srv" : "port"}>{c.srv ? "SRV" : `:${c.port}`}</span></p>
+                            <div className="host">
+                                <p className="text">{c.hostname}{!c.srv && <span>:{c.port}</span>}</p>
+                                {c.srv && <p className="srv">SRV</p>}
+                            </div>
 
                             {((c.authentication.enabled) && (c.authentication.username)) && (
                                 <div className="user">

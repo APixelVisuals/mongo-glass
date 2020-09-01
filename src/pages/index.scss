@@ -81,24 +81,33 @@
                 }
 
                 .host {
-                    display: inline-block;
-                    color: #ffffff5d;
-                    font-family: "Roboto";
-                    font-size: 18px;
-                    @include center;
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 15px 0px;
+
+                    .text {
+                        color: #ffffff5d;
+                        font-family: "Roboto";
+                        font-size: 18px;
+                        margin: 0px;
+                        margin-left: 15px;
+
+                        span {
+                            color: #ffffff3d;
+                            font-size: 15px;
+                        }
+                    }
 
                     .srv {
                         color: white;
+                        font-family: "Roboto";
                         font-size: 15px;
                         background-color: #24a03d8a;
                         border-radius: 5px;
                         padding: 5px 10px;
                         margin-left: 10px;
-                    }
-
-                    .port {
-                        color: #ffffff3d;
-                        font-size: 15px;
                     }
                 }
 
