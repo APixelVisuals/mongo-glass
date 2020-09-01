@@ -20,6 +20,8 @@ export default class Index extends React.Component {
                 <h1 className="text">MongoGlass</h1>
             </div>
 
+            <p className="settings-button" onClick={() => this.props.setPage("/settings")}>Settings</p>
+
             <p className="description">Connections</p>
 
             <div className="connections">

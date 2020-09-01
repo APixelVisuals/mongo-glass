@@ -9,7 +9,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 65px;
+        margin-top: 105px;
 
         .logo {
             width: 85px;
@@ -20,8 +20,19 @@
             color: white;
             font-family: "Roboto Black";
             font-size: 65px;
+            margin: 0px;
             margin-left: 20px;
         }
+    }
+
+    .settings-button {
+        display: inline-block;
+        color: #24a03c;
+        font-family: "Roboto";
+        font-size: 25px;
+        margin-top: 10px;
+        cursor: pointer;
+        @include center;
     }
 
     .description {
