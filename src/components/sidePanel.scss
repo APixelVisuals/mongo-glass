@@ -1,4 +1,4 @@
-@import "../../global";
+@import "../global";
 
 #side-panel {
     position: fixed;
@@ -14,6 +14,10 @@
         align-items: center;
         margin-top: 25px;
 
+        &.margin {
+            margin-right: 50px;
+        }
+
         .side-panel-back-button {
             width: 0px;
             height: 0px;
@@ -26,7 +30,7 @@
         .name {
             margin: 0px auto;
 
-            .connection {
+            .name-main {
                 color: white;
                 font-family: "Roboto";
                 font-size: 18px;
@@ -34,7 +38,7 @@
                 margin: auto;
             }
 
-            .database {
+            .name-description {
                 color: #aaaaaa;
                 font-family: "Roboto";
                 font-size: 15px;
@@ -45,7 +49,7 @@
         }
 
         .settings-button {
-            width: auto;
+            width: 25px;
             height: 25px;
             margin-right: 25px;
             cursor: pointer;
@@ -60,7 +64,7 @@
         @include center;
     }
 
-    .collections-name {
+    .items-name {
         display: inline-block;
         color: white;
         font-family: "Roboto";
@@ -71,7 +75,7 @@
         @include center;
     }
 
-    .collections {
+    .items {
         height: calc(100vh - 121px);
         overflow-y: auto;
 
@@ -84,7 +88,7 @@
             background-color: #ffffff80;
         }
 
-        .collection {
+        .item {
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
@@ -108,7 +112,7 @@
                 margin-left: 25px;
             }
 
-            .size {
+            .item-description {
                 color: #aaaaaa;
                 font-family: "Roboto";
                 font-size: 18px;
