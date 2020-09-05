@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Index from "./pages/index";
+import Settings from "./pages/settings";
 import NewConnection from "./pages/new-connection";
 import EditConnection from "./pages/edit-connection";
 import Databases from "./pages/databases";
@@ -22,6 +23,7 @@ const store = new (window.require("electron-store"))();
 
             this.pages = {
                 "/": Index,
+                "/settings": Settings,
                 "/new-connection": NewConnection,
                 "/edit-connection": EditConnection,
                 "/databases": Databases,

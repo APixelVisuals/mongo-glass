@@ -93,8 +93,14 @@
             flex-wrap: nowrap;
             align-items: center;
             padding: 15px 0px;
+            padding-left: 25px;
             cursor: pointer;
             transition: 0.15s ease-out;
+
+            &.center {
+                justify-content: center;
+                padding-left: 0px;
+            }
 
             &:hover {
                 background-color: #ffffff18;
@@ -109,7 +115,6 @@
                 font-family: "Roboto";
                 font-size: 18px;
                 margin: 0px;
-                margin-left: 25px;
             }
 
             .item-description {

@@ -29,12 +29,12 @@ export default class SidePanel extends React.Component {
 
             <div className="items">
                 {this.props.items && this.props.items.map(i => (
-                    <div className="item" onClick={() => this.props.setItem(i.id)}>
+                    <div className={`item ${!i.settings && "center"}`} onClick={() => this.props.setItem(i.id)}>
 
                         <p className="name">{i.name}</p>
                         <p className="item-description">{i.description}</p>
 
-                        <img src="/gear.svg" className="settings-button" onClick={i.settings} />
+                        {i.settings && <img src="/gear.svg" className="settings-button" onClick={i.settings} />}
 
                     </div>
                 ))}

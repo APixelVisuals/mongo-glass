@@ -25,22 +25,7 @@ export default class Settings extends React.Component {
 
                         {this.props.settings(
                             this.state.data,
-                            this.input,
-                            {
-                                channels: this.state.channels,
-                                roles: this.state.roles,
-                                members: this.state.members,
-                                emojis: this.state.emojis,
-                                emojiList: this.state.emojiList,
-                                items: this.state.items,
-                                commands: this.state.commands
-                            },
-                            {
-                                maxItems: this.state.maxItems,
-                                newItem: this.new,
-                                remove: this.remove,
-                                dashboardData: this.state.dashboardData
-                            }
+                            this.input
                         )}
 
                         <SaveWarning
