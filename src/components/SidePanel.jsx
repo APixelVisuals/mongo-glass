@@ -8,7 +8,7 @@ export default class SidePanel extends React.Component {
     };
 
     render = () => (
-        <div id="side-panel">
+        <div id="side-panel" style={{ boxShadow: `25px ${this.props.boxShadowOffset || 0}px 0px 0px #152c1950, 50px ${this.props.boxShadowOffset || 0}px 0px 0px #152c1925` }}>
 
             <div className={`title-section ${!this.props.settings && "margin"}`}>
 
