@@ -2,6 +2,7 @@ import React from "react";
 import Tooltip from "react-tooltip";
 import Background from "../components/Background";
 import Popup from "../components/Popup";
+import parseSize from "../scripts/parseSize";
 import "./databases.css";
 const { ipcRenderer: ipc } = window.require("electron-better-ipc");
 const store = new (window.require("electron-store"))();
@@ -92,7 +93,7 @@ export default class Databases extends React.Component {
                                     <p className="text">{d.name}</p>
                                 </div>
 
-                                <p className="size">{d.size < 1000000 ? `${(d.size / 1000).toFixed(2)} KB` : (d.size < 1000000000 ? `${(d.size / 1000000).toFixed(2)} MB` : `${(d.size / 1000000000).toFixed(2)} GB`)}</p>
+                                <p className="size">{parseSize(d.size)}</p>
 
                                 <div className="collections">
                                     <img src="/document-collection.svg" className="icon" />
