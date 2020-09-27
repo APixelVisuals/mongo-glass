@@ -19,5 +19,94 @@
     .content {
         width: calc(100% - 350px);
         float: right;
+
+        .title-bar {
+            display: flex;
+            width: 100%;
+            height: 50px;
+            flex-wrap: nowrap;
+            align-items: center;
+            background-color: #152c19aa;
+
+            .name {
+                color: white;
+                font-family: "Roboto";
+                font-size: 18px;
+                margin-left: 50px;
+            }
+
+            .title-bar-description {
+                color: #aaaaaa;
+                font-family: "Roboto";
+                font-size: 15px;
+                margin-left: 15px;
+
+                span {
+                    margin: 0px 10px;
+                }
+            }
+
+            .settings-button {
+                width: auto;
+                height: 25px;
+                margin-left: auto;
+                margin-right: 25px;
+                cursor: pointer;
+            }
+        }
+
+        .header {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            margin-top: 65px;
+            margin-left: calc(10% + 25px);
+
+            .icon {
+                width: auto;
+                height: 25px;
+            }
+
+            .text {
+                color: white;
+                font-family: "Roboto";
+                font-size: 23px;
+                margin-left: 20px;
+            }
+        }
+
+        .query-editor {
+            &.errors {
+                .DraftEditor-editorContainer {
+                    border-bottom-color: #ff3e3e;
+                }
+            }
+
+            .DraftEditor-editorContainer {
+                width: calc(80% - 50px);
+                height: 250px;
+                background-color: #ffffff18;
+                border-bottom: 2px #24a03c solid;
+                overflow-y: auto;
+                padding: 15px 20px;
+                margin-bottom: 50px;
+                transition: 0.25s ease-out, border-color 0.25s ease-out;
+                @include center;
+
+                &.focused {
+                    background-color: #ffffff25;
+                }
+            }
+
+            .public-DraftEditor-content {
+                height: 100%;
+            }
+
+            .query-text {
+                color: white;
+                font-family: monospace;
+                font-size: 20px;
+            }
+        }
     }
 }
